@@ -8,5 +8,7 @@ The shell command 'copy' utilizes writeSector and writeFile.
 
 The shell command 'del' utilizes deleteFile.
 
+The shell command 'dir' displays the files in the main (and only) directory.
+
 The 'create' command does not work at this time.
 
