@@ -25,3 +25,5 @@ ld86 -d -o tstpr2 tstpr2.o userlib.o
 ./loadFile message.txt
 ./loadFile tstpr1
 ./loadFile tstpr2
+
+./loadFile test1

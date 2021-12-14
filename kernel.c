@@ -7,6 +7,8 @@ void handleInterrupt21(int ax, int bx, int cx, int dx);
 void readFile (char* buffer, char* filename, int* sectorsreadptr);
 void executeProgram(char* name);
 void terminate();
+void deleteFile(char* filename);
+void writeFile(char* buffer, char* filename, int numberOfSectors);
 
 void main(){
 	//char buffer[13312];   /*this is the maximum size of a file*/
@@ -60,6 +62,9 @@ void readString(char* line){
 void readSector(char* buffer, int sector){
 	interrupt(0x13, 2*256+1, buffer, 0*256+sector+1, 0*256+0x80);
 }
+void writeSector(char* buffer, int sector){
+	interrupt(0x13, 3*256+1, buffer, 0*256+sector+1, 0*256+0x80);
+}
 void handleInterrupt21(int ax, int bx, int cx, int dx){
     //printString("Interrupting cow has mooed today\n");
     if (ax == 0){
@@ -74,8 +79,13 @@ void handleInterrupt21(int ax, int bx, int cx, int dx){
         executeProgram(bx);
     } else if (ax == 5) {
         terminate();
+    } else if (ax == 6) {
+        writeSector(bx, cx);
+    } else if (ax == 7) {
+        deleteFile(bx);
+    } else if (ax == 8) {
+        writeFile(bx, cx, dx);
     }
-    
 }
 void readFile (char* filename, char* buffer, int* sectorsreadptr){  //int* sectorsreadptr
     //find the file
@@ -123,16 +133,67 @@ void executeProgram(char* name){
     i++;
     }
     launchProgram(seg);
+    terminate();
 }
 void terminate(){
     char shellname[6];
-    while(1){
+    int seg = 0x2000;
+    //while(1){
     shellname[0] = 's';
     shellname[1] = 'h';
     shellname[2] = 'e';
     shellname[3] = 'l';
     shellname[4] = 'l';
     shellname[5] = '\0';
-    }
+    //}
     executeProgram(shellname);
 }
+void deleteFile(char* filename){
+    char dir[512];
+    char map[512];
+    // dir[0] = '\0';
+    int i = 0;
+    //for (i=0; i<13312; i++){
+    //    dir[0]='\0';
+    //    if(filename[i]!=dir[0]){  // check of array at i == 0 or not 
+    //        map[i] = 0;              // if the array at i does not iqual 0 set the map array at i to 0
+        }
+    }
+}
+void writeFile(char* buffer, char* filename, int numberOfSectors){
+    char dir[512];
+    char map[512];
+    int i=0;
+    int k = 0;
+    int j = 0;
+    int count =0;
+    int empty = 0;
+
+    readSector(dir, 2);     // read on the directory
+    readSector(map, 1);     // map
+
+    for(i=0; i<512; i=i+32){  // for each iteration  junp 32 times
+        if(dir[i]==0){
+            dir[i] = filename[0];
+            dir[i+1] = filename[1];
+            dir[i+2] = filename[2];
+            dir[i+3] = filename[3];
+            dir[i+4] = filename[4];
+            dir[i+5] = filename[5];
+            break;
+        }
+    }
+    for(j =0; j<numberOfSectors; j++){
+        for(count=3;  k!= 0; count ++){
+            k= map[count];
+            empty = count;
+    }
+
+            map[empty] = 0xff;
+            dir[i+6+j] = empty;
+    }
+
+          writeSector(dir, 2);
+          writeSector(map, 1);
+}
+
