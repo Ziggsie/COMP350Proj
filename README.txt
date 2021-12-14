@@ -2,6 +2,6 @@ Briana Santos - 2021
 
 C based OS Project for Dr. Margaret Black's COMP350.
 
-Lines marked with "If these work, interrupt 0x16, 0x21, and printString/printChar work" should be uncommented by default. This tests interrupt 0x16, 0x21, and printString/printChar as per the comment states.
+Using the shell's 'type' command shows that both the readFile function and shell are functioning.
 
-To test readSector, comment out those prior lines, and uncomment lines marked with "If these work, then readSector and printString work"
+Using the shell's 'exec' command with tstpr2 shows that the execute and terminate functions are working.
