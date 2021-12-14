@@ -2,6 +2,11 @@ Briana Santos - 2021
 
 C based OS Project for Dr. Margaret Black's COMP350.
 
-Using the shell's 'type' command shows that both the readFile function and shell are functioning.
+The commands for listing directory content, deleting a file, writing a file
 
-Using the shell's 'exec' command with tstpr2 shows that the execute and terminate functions are working.
+The shell command 'copy' utilizes writeSector and writeFile.
+
+The shell command 'del' utilizes deleteFile.
+
+The 'create' command does not work at this time.
+
