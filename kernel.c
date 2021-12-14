@@ -152,11 +152,11 @@ void deleteFile(char* filename){
     char dir[512];
     char map[512];
     // dir[0] = '\0';
-    int i = 0;
-    //for (i=0; i<13312; i++){
-    //    dir[0]='\0';
-    //    if(filename[i]!=dir[0]){  // check of array at i == 0 or not 
-    //        map[i] = 0;              // if the array at i does not iqual 0 set the map array at i to 0
+    int i;
+    for (i=0; i<13312; i++){
+        dir[0]='\0';
+        if(filename[i]!=dir[0]){  // check of array at i == 0 or not 
+            map[i] = 0;              // if the array at i does not iqual 0 set the map array at i to 0
         }
     }
 }
